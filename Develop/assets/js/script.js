@@ -52,6 +52,7 @@ return taskId;
 function createTaskCard(task) {
   const taskCard = $('<div></div>');
   taskCard.addClass("card my-3");
+  taskCard.attr("id", task.id);
 
   const cardBody = $('<div></div>');
   cardBody.addClass("card-body");
@@ -65,6 +66,7 @@ function createTaskCard(task) {
   const cardDate = $('<h3></h3>').text('Due date:'+task.date);
       cardDate.addClass("card-subtitle");
       cardBody.append(cardDate);
+
   const cardDescription = $('<p></p>').text(task.description);
         cardDescription.addClass("card-text");
         cardBody.append(cardDescription);
@@ -74,12 +76,46 @@ function createTaskCard(task) {
       deleteBtn.attr('id', 'delete');
       cardBody.append(deleteBtn);
 
+      //   if (task.status ==='todo-cards') {
+      //   taskCard.attr("class","card bg-light");
+      //  
 
-// TaskCardEl.append(cardTitle, cardDate, cardDescription);
-$('#todo-cards').append(taskCard);
+    if (task.date < dayjs().format('MM/DD/YYYY')) {
+        taskCard.addClass("card bg-danger");
+        }  
 
+    else if (task.date === dayjs().format('MM/DD/YYYY')){
+        taskCard.addClass("card bg-warning");
+        }
+      
+    // else if (task.status ==='in-progress-cards') {
+    //     taskCard.attr("class","card bg-light");
+    //     inProgressCard.append(taskCard);  
+
+    else if (task.date < dayjs().format('MM/DD/YYYY')) {
+        taskCard.addClass("card bg-danger");
+        }  
+      //   else if (task.date === dayjs().format('MM/DD/YYYY')){
+      //     taskCard.addClass("card bg-warning");
+      // }  inProgressCard.append(taskCard); //}
+
+        // else if (task.status ==='done-cards') {
+        // taskCard.attr("class","card bg-light");
+        // doneCard.append(taskCard);
+        todoCard.append(taskCard);
 };
 
+//   if (task.date < dayjs().format('MM/DD/YYYY')) {
+//     taskCard.addClass("card bg-danger");
+//   }  
+//   else if (task.date === dayjs().format('MM/DD/YYYY')){
+//     taskCard.addClass("card bg-warning");
+// }
+
+
+
+
+//};
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() { 
@@ -123,12 +159,8 @@ function TodoCard (title, date, description, status, id) {
 function handleDeleteTask(event) {
   const clickedBtn = $(event.target);
   clickedBtn.closest('.card').remove();
-  
-
   };
 // Todo: create a function to handle dropping a task into a new status lane
-//function handleDrop(event, ui) 
- // { const TodoCard = };
 
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
